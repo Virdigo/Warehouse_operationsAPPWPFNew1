@@ -41,8 +41,8 @@
                             <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quanity}" Width="120"/>
                             <GridViewColumn Header="Документ" DisplayMemberBinding="{Binding Receipt_and_expense_documentsName}" Width="120"/>
                             <GridViewColumn Header="Поставщик" DisplayMemberBinding="{Binding SuppliersName}" Width="120"/>
-                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost}" Width="120"/>
-                            <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}" Width="120"/>
+                            <GridViewColumn Header="Стоимость ₽" DisplayMemberBinding="{Binding Cost}" Width="130"/>
+                            <GridViewColumn Header="Цена ₽" DisplayMemberBinding="{Binding Price}" Width="120"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

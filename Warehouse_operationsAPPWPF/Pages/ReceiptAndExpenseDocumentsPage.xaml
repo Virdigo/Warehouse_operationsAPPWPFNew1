@@ -43,16 +43,16 @@
                 </ListView>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <Button x:Name="excel" Width="50" Height="50" Margin="10" Click="excel_Click" Style="{StaticResource BorderlessButton}">
+                    <Button x:Name="excel" Width="50" Height="50" Margin="10" Click="excel_Click" Style="{StaticResource BorderlessButton}" Background="#3b5998">
                         <Image Source="/Images/excel.png" Stretch="Fill"/>
                     </Button>
-                    <Button x:Name="PDF" Width="50" Height="50" Margin="10" Click="PDF_Click" Style="{StaticResource BorderlessButton}">
+                    <Button x:Name="PDF" Width="50" Height="50" Margin="10" Click="PDF_Click" Style="{StaticResource BorderlessButton}" Background="#3b5998">
                         <Image Source="/Images/pdf.png" Stretch="Fill"/>
                     </Button>
-                    <Button Content="Добавить" Click="AddDocumentsButton_Click" Background="#3b5998" Foreground="White" Width="150" Margin="5,0"/>
-                    <Button Content="Редактировать" Click="EditDocumentsButton_Click" Background="#3b5998" Foreground="White" Width="150" Margin="5,0"/>
-                    <Button Content="Удалить" Click="DeleteDocumentsButton_Click" Background="#D9534F" Foreground="White" Width="150" Margin="5,0"/>
-                    <Button Content="Обновить" Click="LoadDocuments_Click" Background="#5BC0DE" Foreground="White" Width="150" Margin="5,0"/>
+                    <Button Content="Добавить" Click="AddDocumentsButton_Click" Background="#3b5998" Foreground="White" Width="150" Margin="5,0" Height="50"/>
+                    <Button Content="Редактировать" Click="EditDocumentsButton_Click" Background="#3b5998" Foreground="White" Width="150" Margin="5,0" Height="50"/>
+                    <Button Content="Удалить" Click="DeleteDocumentsButton_Click" Background="#D9534F" Foreground="White" Width="150" Margin="5,0" Height="50"/>
+                    <Button Content="Обновить" Click="LoadDocuments_Click" Background="#5BC0DE" Foreground="White" Width="150" Margin="5,0" Height="50"/>
                 </StackPanel>
             </StackPanel>
         </Border>

@@ -38,7 +38,7 @@ namespace Warehouse_operationsAPPWPF.Pages
                 DocumentIdTextBox.Text = _information.id_doc.ToString();
                 SupplierIdTextBox.Text = _information.id_suppliers.ToString();
                 CostTextBox.Text = _information.Cost.ToString();
-                PriceTextBox.Text = _information.Price.ToString();
+                //PriceTextBox.Text = _information.Price.ToString();
             
         }
         private void FilterTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -57,7 +57,7 @@ namespace Warehouse_operationsAPPWPF.Pages
                 _information.id_doc = int.Parse(DocumentIdTextBox.Text);
                 _information.id_suppliers = int.Parse(SupplierIdTextBox.Text);
                 _information.Cost = int.Parse(CostTextBox.Text);
-                _information.Price = int.Parse(PriceTextBox.Text);
+                //_information.Price = int.Parse(PriceTextBox.Text);
 
                 if (_information.id_inf_doc == 0)
                 {

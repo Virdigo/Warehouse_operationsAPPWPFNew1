@@ -193,6 +193,7 @@
     <Compile Include="Services\ApiServiceSuppliers.cs" />
     <Compile Include="Services\ApiServiceWarehouses.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModel\ExportDocumentDto.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

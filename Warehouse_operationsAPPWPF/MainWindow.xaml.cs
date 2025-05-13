@@ -30,7 +30,7 @@ namespace Warehouse_operationsAPPWPF
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new OstatkiPage());
+            MainFrame.Navigate(new ReceiptAndExpenseDocumentsPage());
         }
 
         // Свернуть окно
