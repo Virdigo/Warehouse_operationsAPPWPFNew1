@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -41,6 +42,13 @@ namespace Warehouse_operationsAPPWPF.Services
         {
             var response = await _httpClient.DeleteAsync($"DELETE/{id_inf_doc}");
             response.EnsureSuccessStatusCode();
+        }
+        internal async Task<List<Information_about_documents>> GetInformationByDocumentIdAsync(int documentId)
+        {
+            var response = await _httpClient.GetAsync($"byDocument/{documentId}");
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<Information_about_documents>>(json);
         }
     }
 }

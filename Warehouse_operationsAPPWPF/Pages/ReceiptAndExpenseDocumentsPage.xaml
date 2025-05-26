@@ -4,16 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse_operationsAPPWPF.Pages"
+      xmlns:conv="clr-namespace:Warehouse_operationsAPPWPF.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1250"
       Title="ReceiptAndExpenseDocumentsPage" Background="#3b5998">
-
+    <Page.Resources>
+        <conv:BoolToReceiptTypeConverter x:Key="BoolToReceiptTypeConverter"/>
+    </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Name="BtnArrowLeft" Width="50" Height="50" Click="BtnArrowLeft_Click" Style="{StaticResource BorderlessButton}">
                 <Image Source="/Images/ArrowLeft.png" Stretch="Fill"/>
@@ -21,6 +24,12 @@
             <Button Name="BtnArrowRight" Width="50" Height="50" Click="BtnArrowRight_Click" Style="{StaticResource BorderlessButton}">
                 <Image Source="/Images/ArrowRight.png" Stretch="Fill"/>
             </Button>
+            <TextBlock Text="Администратор | Страница приходно-расходных документов"
+    FontSize="18"
+    FontWeight="Bold"
+    Foreground="White"
+    VerticalAlignment="Center"
+    Margin="20,0,0,0"/>
         </StackPanel>
 
         <Border Background="White" CornerRadius="10" Padding="0" Grid.Row="1">
@@ -31,12 +40,21 @@
                     <Button Content="Фильтр" Click="FilterButton_Click" Background="#3b5998" Foreground="White" Width="100" Margin="5,0" Height="50"/>
                 </StackPanel>
 
-                <ListView Name="DocumentsListView" Height="300" Margin="0,10,0,0">
+                <ListView Name="DocumentsListView" Height="300" Margin="0,10,0,0"
+          MouseDoubleClick="DocumentsListView_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_doc}" Width="70"/>
                             <GridViewColumn Header="Наименование" DisplayMemberBinding="{Binding date}" Width="200"/>
-                            <GridViewColumn Header="Документ" DisplayMemberBinding="{Binding ReceiptAndexpense_documents}" Width="350"/>
+                            <GridViewColumn Header="Документ" Width="350">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                Text="{Binding ReceiptAndexpense_documents, 
+                               Converter={StaticResource BoolToReceiptTypeConverter}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Пользователь" DisplayMemberBinding="{Binding UsersName}" Width="170"/>
                         </GridView>
                     </ListView.View>

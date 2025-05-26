@@ -119,6 +119,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToReceiptTypeConverter.cs" />
     <Compile Include="Models\Information_about_documents.cs" />
     <Compile Include="Models\LoginDto.cs" />
     <Compile Include="Models\Ostatki.cs" />
@@ -169,6 +170,9 @@
     </Compile>
     <Compile Include="Pages\ReceiptAndExpenseDocumentsPage.xaml.cs">
       <DependentUpon>ReceiptAndExpenseDocumentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReceiptExpenseDocumentDetailsWindow.xaml.cs">
+      <DependentUpon>ReceiptExpenseDocumentDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SuppliersPage.xaml.cs">
       <DependentUpon>SuppliersPage.xaml</DependentUpon>
@@ -259,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ReceiptAndExpenseDocumentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReceiptExpenseDocumentDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

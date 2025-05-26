@@ -30,7 +30,7 @@ namespace Warehouse_operationsAPPWPF
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new LoginPage());
+            MainFrame.Navigate(new ReceiptAndExpenseDocumentsPage());
         }
 
         // Свернуть окно
@@ -88,22 +88,21 @@ namespace Warehouse_operationsAPPWPF
             }
         }
 
-        // Кнопка выхода
         private void logout_Click(object sender, RoutedEventArgs e)
         {
-            // Если мы уже на странице логина, ничего не делаем
+
             if (MainFrame.Content is LoginPage)
             {
                 return;
             }
 
 
-            // Запрашиваем подтверждение выхода
+
             var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
-                // После выхода, переходим на страницу логина
+
                 MainFrame.Navigate(new LoginPage());
             }
         }

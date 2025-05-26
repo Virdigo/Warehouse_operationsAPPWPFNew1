@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,8 @@ using Warehouse_operationsAPPWPF.Models;
 using Warehouse_operationsAPPWPF.Services;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
+using System.IO;
+using System.Windows.Input;
 
 namespace Warehouse_operationsAPPWPF.Pages
 {
@@ -54,7 +59,7 @@ namespace Warehouse_operationsAPPWPF.Pages
         {
             var filteredProducts = _allReceiptAndExpenseDocuments.AsEnumerable();
 
-           
+
 
             // Фильтр по дате
             if (StartDatePicker.SelectedDate.HasValue)
@@ -162,63 +167,76 @@ namespace Warehouse_operationsAPPWPF.Pages
 
         private async void PDF_Click(object sender, RoutedEventArgs e)
         {
-            _allReceiptAndExpenseDocuments = await _apiService.GetReceiptAndExpenseDocumentsList();
-            var ReceiptAndExpenseDocumentsInPDF = _allReceiptAndExpenseDocuments;
+            // Получаем данные
+            var docs = await _apiService.GetReceiptAndExpenseDocumentsList();
 
-            var ReceiptAndExpenseDocumentsApplicationPDF = new Word.Application();
+            // Создание PDF-документа
+            var document = new PdfDocument();
+            document.Info.Title = "Документы прихода/расхода";
 
-            Word.Document document = ReceiptAndExpenseDocumentsApplicationPDF.Documents.Add();
+            // Настройки шрифтов
+            var headerFont = new XFont("Verdana", 12, XFontStyle.Bold);
+            var boldFont = new XFont("Verdana", 9, XFontStyle.Bold);
+            var normalFont = new XFont("Verdana", 8, XFontStyle.Regular);
 
-            Word.Paragraph empParagraph = document.Paragraphs.Add();
-            Word.Range empRange = empParagraph.Range;
-            empRange.Text = "Документы";
-            empRange.Font.Bold = 4;
-            empRange.Font.Italic = 4;
-            empRange.Font.Color = Word.WdColor.wdColorBlack;
-            empRange.InsertParagraphAfter();
+            // Начальная страница
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            Word.Paragraph tableParagraph = document.Paragraphs.Add();
-            Word.Range tableRange = tableParagraph.Range;
-            Word.Table paymentsTable = document.Tables.Add(tableRange, ReceiptAndExpenseDocumentsInPDF.Count() + 1, 4);
-            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+            double marginLeft = 20;
+            double y = 30;
 
-            Word.Range cellRange;
+            // Заголовок
+            gfx.DrawString("Документы прихода/расхода", headerFont, XBrushes.Black,
+                           new XPoint(marginLeft, y));
+            y += 30;
 
-            cellRange = paymentsTable.Cell(1, 1).Range;
-            cellRange.Text = "Код документа";
-            cellRange = paymentsTable.Cell(1, 2).Range;
-            cellRange.Text = "Дата";
-            cellRange = paymentsTable.Cell(1, 3).Range;
-            cellRange.Text = "Приходно или расходный документ";
-            cellRange = paymentsTable.Cell(1, 4).Range;
-            cellRange.Text = "Код пользователя";
+            // Шапка таблицы
+            gfx.DrawString("Код документа", boldFont, XBrushes.Black, new XPoint(marginLeft + 0, y));
+            gfx.DrawString("Дата", boldFont, XBrushes.Black, new XPoint(marginLeft + 100, y));
+            gfx.DrawString("Приход/расход", boldFont, XBrushes.Black, new XPoint(marginLeft + 180, y));
+            gfx.DrawString("Код пользователя", boldFont, XBrushes.Black, new XPoint(marginLeft + 300, y));
+            y += 20;
 
+            // Линия под шапкой (необязательно)
+            gfx.DrawLine(XPens.Black, marginLeft, y, page.Width - marginLeft, y);
+            y += 10;
 
-
-            paymentsTable.Rows[1].Range.Bold = 1;
-            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-
-            for (int i = 0; i < ReceiptAndExpenseDocumentsInPDF.Count(); i++)
+            // Заполнение строк таблицы
+            foreach (var item in docs)
             {
-                var ProductCurrent = ReceiptAndExpenseDocumentsInPDF[i];
+                // Если не помещается на странице — открываем новую
+                if (y > page.Height - 40)
+                {
+                    page = document.AddPage();
+                    gfx = XGraphics.FromPdfPage(page);
+                    y = 30;
+                }
 
-                cellRange = paymentsTable.Cell(i + 2, 1).Range;
-                cellRange.Text = ProductCurrent.id_doc.ToString();
-
-                cellRange = paymentsTable.Cell(i + 2, 2).Range;
-                cellRange.Text = ProductCurrent.date.ToString();
-
-                cellRange = paymentsTable.Cell(i + 2, 3).Range;
-                cellRange.Text = ProductCurrent.ReceiptAndexpense_documents.ToString();
-
-                cellRange = paymentsTable.Cell(i + 2, 4).Range;
-                cellRange.Text = ProductCurrent.id_users.ToString();
+                gfx.DrawString(item.id_doc.ToString(), normalFont, XBrushes.Black, new XPoint(marginLeft + 0, y));
+                gfx.DrawString(item.date.ToString("yyyy-MM-dd"), normalFont, XBrushes.Black, new XPoint(marginLeft + 100, y));
+                gfx.DrawString(item.ReceiptAndexpense_documents ? "Приход" : "Расход", normalFont, XBrushes.Black, new XPoint(marginLeft + 180, y));
+                gfx.DrawString(item.id_users.ToString(), normalFont, XBrushes.Black, new XPoint(marginLeft + 300, y));
+                y += 18;
             }
 
-            ReceiptAndExpenseDocumentsApplicationPDF.Visible = true;
+            // Сохраняем PDF во временную папку и открываем
+            string filename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "ReceiptAndExpenseDocuments.pdf");
+            document.Save(filename);
 
-            document.SaveAs2(@"C:\Users\bpvla\Desktop\Проект в авторизацей\Warehouse_operationsAPPWPF-master\Warehouse_operationsAPPWPF\bin\Debug\ReceiptAndExpenseDocuments.pdf", Word.WdExportFormat.wdExportFormatPDF);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filename,
+                UseShellExecute = true
+            });
+        }
+        private void DocumentsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (DocumentsListView.SelectedItem is Receipt_and_expense_documents selectedDoc)
+            {
+                var window = new ReceiptExpenseDocumentDetailsWindow(selectedDoc.id_doc);
+                window.ShowDialog();
+            }
         }
     }
 }

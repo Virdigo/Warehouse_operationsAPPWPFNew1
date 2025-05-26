@@ -21,6 +21,12 @@
             <Button Name="BtnArrowRight" Width="50" Height="50" Click="BtnArrowRight_Click" Style="{StaticResource BorderlessButton}">
                 <Image Source="/Images/ArrowRight.png" Stretch="Fill"/>
             </Button>
+            <TextBlock Text="Бухгалтер | Страница товаров"
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="White"
+                VerticalAlignment="Center"
+                Margin="20,0,0,0"/>
         </StackPanel>
 
         <Border Background="White" CornerRadius="10" Padding="20" Grid.Row="1">
@@ -41,7 +47,7 @@
                             <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id_Product}" Width="70"/>
                             <GridViewColumn Header="Наименование" DisplayMemberBinding="{Binding Name}" Width="200"/>
                             <GridViewColumn Header="Артикул" DisplayMemberBinding="{Binding vendor_code}" Width="150"/>
-                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price}" Width="150"/>
+                            <GridViewColumn Header="Стоимость ₽" DisplayMemberBinding="{Binding Price}" Width="150"/>
                             <GridViewColumn Header="Тип продукта" DisplayMemberBinding="{Binding ProductTypeName}" Width="170"/>
                             <GridViewColumn Header="Единица измерения" DisplayMemberBinding="{Binding UnitName}" Width="100"/>
                         </GridView>

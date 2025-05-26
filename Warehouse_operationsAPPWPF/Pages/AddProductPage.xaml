@@ -39,7 +39,7 @@
                 <TextBlock Text="Наименование:" FontSize="14" Foreground="#3b5998" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox Name="NameTextBox" Grid.Row="0" Grid.Column="1" Width="250" Height="40" />
 
-                <TextBlock Text="Стоимость:" FontSize="14" Foreground="#3b5998" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="Стоимость ₽:" FontSize="14" Foreground="#3b5998" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox Name="PriceTextBox" Grid.Row="1" Grid.Column="1" Width="150" Height="40" PreviewTextInput="FilterTextBox_PreviewTextInput"/>
 
                 <TextBlock Text="Артикул:" FontSize="14" Foreground="#3b5998" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
