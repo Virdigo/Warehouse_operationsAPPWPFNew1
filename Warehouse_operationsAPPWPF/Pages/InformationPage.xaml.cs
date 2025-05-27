@@ -49,6 +49,8 @@ namespace Warehouse_operationsAPPWPF.Pages
             {
                 MessageBox.Show($"Ошибка загрузки информации: {ex.Message}");
             }
+            InformationListView.ItemsSource = _allInformation;
+            TotalPriceTextBlock.Text = _allInformation.Sum(item => item.Price).ToString("N2") + " ₽";
         }
         private void FilterTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -70,6 +72,12 @@ namespace Warehouse_operationsAPPWPF.Pages
             }
 
             InformationListView.ItemsSource = filteredInformation.ToList();
+            var filteredList = filteredInformation.ToList();
+            InformationListView.ItemsSource = filteredList;
+
+            // Подсчет суммы по Price
+            decimal totalPrice = filteredList.Sum(item => item.Price);
+            TotalPriceTextBlock.Text = totalPrice.ToString("N2") + " ₽";
         }
 
         private void AddInformationButton_Click(object sender, RoutedEventArgs e)

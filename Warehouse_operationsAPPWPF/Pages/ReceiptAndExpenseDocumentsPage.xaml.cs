@@ -142,7 +142,7 @@ namespace Warehouse_operationsAPPWPF.Pages
             worksheet.Cells[1][indexRows] = "Код документа";
             worksheet.Cells[2][indexRows] = "Дата";
             worksheet.Cells[3][indexRows] = "Приходно или расходный документ";
-            worksheet.Cells[4][indexRows] = "Код пользователя";
+            worksheet.Cells[4][indexRows] = "Пользователь";
 
             var printItems = DocumentsListView.Items;
 
@@ -151,7 +151,7 @@ namespace Warehouse_operationsAPPWPF.Pages
                 worksheet.Cells[1][indexRows + 1] = indexRows;
                 worksheet.Cells[2][indexRows + 1] = item.date;
                 worksheet.Cells[3][indexRows + 1] = item.ReceiptAndexpense_documents;
-                worksheet.Cells[4][indexRows + 1] = item.id_users;
+                worksheet.Cells[4][indexRows + 1] = item.UsersName;
 
                 indexRows++;
             }
@@ -216,7 +216,7 @@ namespace Warehouse_operationsAPPWPF.Pages
                 gfx.DrawString(item.id_doc.ToString(), normalFont, XBrushes.Black, new XPoint(marginLeft + 0, y));
                 gfx.DrawString(item.date.ToString("yyyy-MM-dd"), normalFont, XBrushes.Black, new XPoint(marginLeft + 100, y));
                 gfx.DrawString(item.ReceiptAndexpense_documents ? "Приход" : "Расход", normalFont, XBrushes.Black, new XPoint(marginLeft + 180, y));
-                gfx.DrawString(item.id_users.ToString(), normalFont, XBrushes.Black, new XPoint(marginLeft + 300, y));
+                gfx.DrawString(item.UsersName.ToString(), normalFont, XBrushes.Black, new XPoint(marginLeft + 300, y));
                 y += 18;
             }
 

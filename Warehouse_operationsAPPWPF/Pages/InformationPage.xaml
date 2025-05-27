@@ -47,8 +47,8 @@
                             <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quanity}" Width="120"/>
                             <GridViewColumn Header="Документ" DisplayMemberBinding="{Binding Receipt_and_expense_documentsName}" Width="120"/>
                             <GridViewColumn Header="Поставщик" DisplayMemberBinding="{Binding SuppliersName}" Width="120"/>
-                            <GridViewColumn Header="Стоимость ₽" DisplayMemberBinding="{Binding Cost}" Width="130"/>
                             <GridViewColumn Header="Цена ₽" DisplayMemberBinding="{Binding Price}" Width="120"/>
+                            <GridViewColumn Header="Стоимость ₽" DisplayMemberBinding="{Binding Cost}" Width="130"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -58,7 +58,10 @@
                     <Button Content="Редактировать" Click="EditInformationButton_Click" Background="#3b5998" Foreground="White" Width="150" Margin="5,0"/>
                     <Button Content="Удалить" Click="DeleteInformationButton_Click" Background="#D9534F" Foreground="White" Width="150" Margin="5,0"/>
                     <Button Content="Обновить" Click="LoadInformation_Click" Background="#5BC0DE" Foreground="White" Width="150" Margin="5,0"/>
+                    <TextBlock Text="Сумма цен: " FontSize="16" FontWeight="Bold" Foreground="#3b5998" VerticalAlignment="Center"/>
+                    <TextBlock Name="TotalPriceTextBlock" FontSize="16" FontWeight="Bold" Foreground="#3b5998" VerticalAlignment="Center" Margin="5,0"/>
                 </StackPanel>
+               
             </StackPanel>
         </Border>
     </Grid>
