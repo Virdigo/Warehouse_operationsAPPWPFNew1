@@ -30,7 +30,7 @@ namespace Warehouse_operationsAPPWPF
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new InformationPage());
+            MainFrame.Navigate(new PageMenu());
         }
 
         // Свернуть окно
@@ -62,23 +62,23 @@ namespace Warehouse_operationsAPPWPF
                 MessageBox.Show("Сначала авторизируйтесь");
             }
 
-            if (MainFrame.Content is OstatkiPageAccountant)
+            else if (MainFrame.Content is OstatkiPageAccountant)
             {
                 return;
             }
-            if (MainFrame.Content is ProductsPageAccountant)
+            else if (MainFrame.Content is ProductsPageAccountant)
             {
                 return;
             }
-            if (MainFrame.Content is OstatkiPageWarehouse)
+            else if (MainFrame.Content is OstatkiPageWarehouse)
             {
                 return;
             }
-            if (MainFrame.Content is ProductsPageWarehouse)
+            else if (MainFrame.Content is ProductsPageWarehouse)
             {
                 return;
             }
-            if (MainFrame.Content is WarehousePageWarehouse)
+            else if(MainFrame.Content is WarehousePageWarehouse)
             {
                 return;
             }
